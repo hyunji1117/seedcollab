@@ -4,7 +4,9 @@
   "description": "Link: (https://coworkcarrot.github.io/seedcollab/)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve --config webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js"
   },
   "repository": {
     "type": "git",
