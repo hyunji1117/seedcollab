@@ -2,33 +2,20 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-// 페이지 목록 정의
-const pages = ['home', 'adopt', 'auth', 'sub'];
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   
-  // 멀티 엔트리 포인트 설정
-  entry: pages.reduce((entries, page) => {
-    entries[page] = [
-      // 공통 엔트리
-      './src/index.js', 
-      // 페이지별 엔트리
-      `./src/js/pages/${page}.js` 
-    ];
-    return entries;
-  }, {
-    // 메인 엔트리
-    main: './src/index.js'  
-  }),
+  // 단순화된 엔트리 (일단 단일 엔트리로)
+  entry: './src/index.js',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    // [name]으로 변경
-    filename: 'js/[name].[contenthash].js',  
-    assetModuleFilename: 'assets/[name][ext]',
-    clean: true
+    filename: 'js/bundle.[contenthash].js',
+    assetModuleFilename: 'assets/[path][name][ext]',  // 경로 유지
+    clean: true,
+    publicPath: '/'  // 추가
   },
 
   resolve: {
@@ -38,7 +25,6 @@ module.exports = {
       '@js': path.resolve(__dirname, 'src/js'), 
       '@assets': path.resolve(__dirname, 'src/assets'), 
     },
-    // 확장자 자동 해결
     extensions: ['.js', '.jsx', '.scss', '.css']
   },
 
@@ -61,12 +47,19 @@ module.exports = {
         ],
       },
 
-      // 이미지
+      // 이미지 - 경로 구조 유지
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/images/[name][ext]',
+          filename: (pathData) => {
+            // src/assets/ 이후의 경로를 그대로 유지
+            const filepath = path.dirname(pathData.filename)
+              .split(path.sep)
+              .slice(1)  // 'src' 제거
+              .join('/');
+            return `${filepath}/[name][ext]`;
+          }
         },
       },
 
@@ -84,39 +77,44 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
 
-    // CSS 파일 추출 플러그인
     new MiniCssExtractPlugin({
-      // [name]으로 변경
-      filename: 'css/[name].[contenthash].css',  
+      filename: 'css/styles.[contenthash].css',
     }),
 
-    // 각 페이지별 HtmlWebpackPlugin 자동 생성
-    ...pages.map(page => 
-      new HtmlWebpackPlugin({
-        template: `./src/pages/${page}/index.html`,
-        filename: `${page}.html`,
-        chunks: ['main', page], 
-        inject: 'body',
-      })
-    ),
+    // 정적 파일 복사 (이미지, 아이콘 등)
+    new CopyWebpackPlugin({
+      patterns: [
+        { 
+          from: 'src/assets', 
+          to: 'assets',
+          noErrorOnMissing: true 
+        }
+      ]
+    }),
 
-    // 메인 index.html (홈을 기본으로)
+    // 단일 HTML (일단 home만)
     new HtmlWebpackPlugin({
       template: './src/pages/home/index.html',
       filename: 'index.html',
-      chunks: ['main', 'home'],
       inject: 'body',
     }),
   ],
 
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
+    static: [
+      {
+        directory: path.resolve(__dirname, 'dist'),
+      },
+      {
+        directory: path.resolve(__dirname, 'src'),
+        publicPath: '/',
+        watch: true
+      }
+    ],
     open: true,
     port: 3000,
-    hot: true, 
-     // 파일 변경 감지
-    watchFiles: ['src/**/*'], 
+    hot: true,
+    // 404 시 index.html로 폴백
+    historyApiFallback: true,
   },
 };
