@@ -33,7 +33,10 @@ module.exports = {
       filename: 'css/styles.[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      template: './index.html',   // 기존 index.html을 템플릿으로 사용
+      template: './src/index.html',   // 기존 index.html을 템플릿으로 사용
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'main.css',
     }),
   ],
   devServer: {
