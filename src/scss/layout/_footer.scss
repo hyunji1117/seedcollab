@@ -15,7 +15,6 @@ footer {
   box-sizing: border-box; */
 
   .footer-container {
-    width: 1300px;
     height: 340px;
 
     /* background: #99A; */
@@ -32,6 +31,8 @@ footer {
 }
 
 .footer-logo {
+  margin-left: 50px;
+
   img {
     width: 300px;
   }
@@ -53,6 +54,8 @@ footer .footer-nav .f-nav ul li {
 }
 
 .footer-right {
+  margin-right: 50px;
+
   h4, p {
     margin-bottom: 10px;
   }
