@@ -1,13 +1,34 @@
 // src/scss/base/_typography.scss
 // 타이포그래피 스타일
 
+// =================================
+// 폰트 선언
+// =================================
 @font-face {
   font-family: 'NanumBarunGothic';
   src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'),
+       url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'),
+       url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
+// =================================
+// 기본 폰트 설정
+// =================================
 body {
   font-family: "NanumBarunGothic", "Nanum Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222;
+}
+
+// =================================
+// 제목 스타일
+// =================================
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  line-height: 1.2;
 }

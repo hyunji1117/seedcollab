@@ -1,8 +1,42 @@
 const path = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// 모든 HTML 페이지 자동 탐색 함수
+function findHtmlFiles(dir, basePath = '') {
+  const pages = [];
+  const files = fs.readdirSync(dir);
+  
+  files.forEach(file => {
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
+    
+    if (stat.isDirectory()) {
+      // 하위 디렉토리 재귀 탐색
+      pages.push(...findHtmlFiles(fullPath, path.join(basePath, file)));
+    } else if (file.endsWith('.html')) {
+      // HTML 파일 발견 시 추가
+      const name = path.join(basePath, file.replace('.html', ''));
+      pages.push({
+        name: name,
+        path: fullPath,
+        // home/index.html은 루트로, 나머지는 원래 경로 유지
+        outputPath: name === 'home/index' ? 'index.html' : `${name}.html`
+      });
+    }
+  });
+  
+  return pages;
+}
+
+// src/pages 디렉토리에서 모든 HTML 파일 탐색
+const pagesDir = path.resolve(__dirname, 'src/pages');
+const htmlPages = findHtmlFiles(pagesDir);
+
+console.log('Found pages:', htmlPages.map(p => p.outputPath));
 
 module.exports = {
   mode: 'development',
@@ -92,12 +126,20 @@ module.exports = {
       ]
     }),
 
-    // 단일 HTML (일단 home만)
-    new HtmlWebpackPlugin({
-      template: './src/pages/home/index.html',
-      filename: 'index.html',
-      inject: 'body',
-    }),
+    // 자동으로 발견된 모든 HTML 페이지에 대해 HtmlWebpackPlugin 생성
+    ...htmlPages.map(page => 
+      new HtmlWebpackPlugin({
+        template: page.path,
+        filename: page.outputPath,
+        inject: 'body',
+        // 페이지별 메타 데이터 (선택사항)
+        meta: {
+          viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+        },
+        // 캐시 무효화를 위한 해시 추가
+        hash: true,
+      })
+    ),
   ],
 
   devServer: {
@@ -115,6 +157,13 @@ module.exports = {
     port: 3000,
     hot: true,
     // 404 시 index.html로 폴백
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        // 특정 경로 리라이트 규칙 (필요시 추가)
+        { from: /^\/sub\//, to: '/sub/notice-list.html' },
+      ]
+    },
+    // 모든 페이지 변경 감지
+    watchFiles: ['src/**/*.html', 'src/**/*.scss', 'src/**/*.js'],
   },
 };

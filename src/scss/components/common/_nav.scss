@@ -1,43 +1,102 @@
 // src/scss/components/common/_nav.scss
 // 공통 네비게이션 스타일
 
+@use '../../base/variables' as *;
+
+// =================================
+// 네비게이션 메인 컨테이너
+// =================================
 nav {
   position: sticky;
   top: 0;
   z-index: 5;
 
+  // =================================
+  // 네비게이션 내부 컨테이너
+  // =================================
   .nav-container {
     display: flex;
     position: absolute;
     justify-content: space-between;
-    gap: 60px 60px 5px;
     align-items: center;
     width: 100%;
     height: 5rem;
     padding: 0 0.8rem;
     border-bottom: 1px solid rgba(130, 130, 130, 0.2);
-    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-  }
-
-  .nav-logo {
-    width: 20%;
-  }
-
-  .nav-button {
-    width: 10%;
-  }
-
-  .nav-logo .menu-logo a {
-    height: 60px;
-
-    img {
-      height: 3rem;
+    -webkit-backdrop-filter: blur(10px);
+    
+    @include respond-to(md) {
+      height: 4rem;
+      padding: 0 1rem;
+    }
+    
+    @include respond-to(sm) {
+      height: 3.5rem;
+      flex-wrap: wrap;
     }
   }
 
+  // =================================
+  // 네비게이션 로고 영역
+  // =================================
+  .nav-logo {
+    width: 20%;
+    
+    @include respond-to(md) {
+      width: 30%;
+    }
+    
+    @include respond-to(sm) {
+      width: 40%;
+    }
+    
+    .menu-logo a {
+      height: 60px;
+      display: inline-block;
+
+      img {
+        height: 3rem;
+        
+        @include respond-to(md) {
+          height: 2.5rem;
+        }
+        
+        @include respond-to(sm) {
+          height: 2rem;
+        }
+      }
+    }
+  }
+
+  // =================================
+  // 네비게이션 버튼 영역
+  // =================================
+  .nav-button {
+    width: 10%;
+    
+    @include respond-to(md) {
+      width: 15%;
+    }
+    
+    @include respond-to(sm) {
+      width: auto;
+    }
+  }
+
+  // =================================
+  // 네비게이션 메뉴 영역
+  // =================================
   .nav-menu {
     width: 60%;
+    
+    @include respond-to(md) {
+      width: 45%;
+    }
+    
+    @include respond-to(sm) {
+      display: none;
+    }
 
     ul.menu-link {
       width: 100%;
@@ -45,15 +104,27 @@ nav {
       justify-content: center;
 
       > li > a {
-        color: #2F2521;
+        color: $color-secondary;
         position: relative;
         display: inline-block;
         margin: 0 60px;
         font-size: 0.9rem;
+        
+        @include respond-to(lg) {
+          margin: 0 40px;
+        }
+        
+        @include respond-to(md) {
+          margin: 0 20px;
+          font-size: 0.85rem;
+        }
       }
     }
   }
 
+  // =================================
+  // 메뉴 링크 호버 효과
+  // =================================
   ul.menu-link > li > a {
     &:hover {
       text-decoration: none;
@@ -66,11 +137,9 @@ nav {
       bottom: 0;
       width: 100%;
       height: 1px;
-      background-color: #2F2521;
+      background-color: $color-secondary;
       transform: scaleX(0);
       transform-origin: 100% 0;
-
-      /* transform-origin: 0 0; */
       transition: transform 0.3s cubic-bezier(0.45, 0.46, 0.05, 0.96);
     }
 
@@ -82,8 +151,19 @@ nav {
   }
 }
 
+// =================================
+// 로그인/회원가입 링크 영역
+// =================================
 .nav-login-register {
   width: 10%;
+  
+  @include respond-to(md) {
+    width: 15%;
+  }
+  
+  @include respond-to(sm) {
+    display: none;
+  }
 
   .login-register-link {
     display: flex;
@@ -93,7 +173,11 @@ nav {
     > li > a {
       display: inline-block;
       font-size: 0.9rem;
-      color: #58463f;
+      color: $color-text-nav;
+      
+      @include respond-to(md) {
+        font-size: 0.8rem;
+      }
 
       &:after {
         content: "";
@@ -102,11 +186,9 @@ nav {
         bottom: 0;
         width: 100%;
         height: 1px;
-        background-color: #58463f;
+        background-color: $color-text-nav;
         transform: scaleX(0);
         transform-origin: 100% 0;
-
-        /* transform-origin: 0 0; */
         transition: transform 0.3s cubic-bezier(0.45, 0.46, 0.05, 0.96);
       }
 
@@ -115,6 +197,194 @@ nav {
         transform-origin: 0 0;
         transition: transform 0.5s cubic-bezier(0.45, 0.46, 0.05, 0.96);
       }
+    }
+  }
+}
+
+// =================================
+// 네비게이션 버튼 스타일
+// =================================
+.nav-button {
+  text-align: right;
+  height: 5rem;
+  
+  @include respond-to(md) {
+    height: 4rem;
+  }
+  
+  @include respond-to(sm) {
+    height: 3.5rem;
+  }
+
+  .btn-container {
+    width: 8rem;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: $color-secondary;
+    display: inline-block;
+    margin-top: 1.25rem;
+    cursor: pointer;
+    z-index: 9;
+    position: relative;
+    
+    @include respond-to(md) {
+      width: 6rem;
+      height: 2rem;
+      margin-top: 1rem;
+    }
+    
+    @include respond-to(sm) {
+      width: 5rem;
+      height: 1.8rem;
+      margin-top: 0.85rem;
+    }
+  }
+}
+
+// =================================
+// 네비게이션 버튼 애니메이션 효과
+// =================================
+.nav-container .btn {
+  position: absolute;
+  top: 0.1rem;
+  left: 0.1rem;
+  overflow: hidden;
+  width: 7.8rem;
+  height: 2.3rem;
+  background: $color-secondary;
+  border-radius: 30px;
+  
+  @include respond-to(md) {
+    width: 5.8rem;
+    height: 1.8rem;
+  }
+  
+  @include respond-to(sm) {
+    width: 4.8rem;
+    height: 1.6rem;
+  }
+
+  .txt {
+    position: relative;
+    z-index: 2;
+    display: block;
+    line-height: 2.3rem;
+    text-align: center;
+    right: 1rem;
+    color: $color-white;
+    font-size: 0.9rem;
+    
+    @include respond-to(md) {
+      line-height: 1.8rem;
+      right: 0.8rem;
+      font-size: 0.75rem;
+    }
+    
+    @include respond-to(sm) {
+      line-height: 1.6rem;
+      right: 0.6rem;
+      font-size: 0.65rem;
+    }
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    width: 7.8rem;
+    height: 2.3rem;
+    border-radius: 30px;
+    background: $color-white;
+    position: absolute;
+    top: 0rem;
+    left: 8rem;
+    transition: linear 0.4s;
+    z-index: 1;
+    
+    @include respond-to(md) {
+      width: 5.8rem;
+      height: 1.8rem;
+      left: 6rem;
+    }
+    
+    @include respond-to(sm) {
+      width: 4.8rem;
+      height: 1.6rem;
+      left: 5rem;
+    }
+  }
+  
+  // 아이콘 영역
+  .txt .icon {
+    width: 2.3rem;
+    height: 2.3rem;
+    background: $color-white;
+    border-radius: 50%;
+    position: absolute;
+    top: 0rem;
+    left: 6.5rem;
+    z-index: 3;
+    
+    @include respond-to(md) {
+      width: 1.8rem;
+      height: 1.8rem;
+      left: 4.8rem;
+    }
+    
+    @include respond-to(sm) {
+      width: 1.5rem;
+      height: 1.5rem;
+      left: 4rem;
+    }
+
+    img {
+      width: 12px;
+      
+      @include respond-to(sm) {
+        width: 10px;
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+// =================================
+// 버튼 호버 효과
+// =================================
+.btn-container:hover {
+  .btn::before {
+    left: 0;
+  }
+
+  .txt {
+    color: $color-secondary;
+    font-weight: bold;
+    transition: linear 0.5s;
+  }
+}
+
+// =================================
+// 모바일 메뉴 토글 버튼 (필요시 추가)
+// =================================
+.mobile-menu-toggle {
+  display: none;
+  
+  @include respond-to(sm) {
+    display: block;
+    cursor: pointer;
+    padding: 0.5rem;
+    
+    span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: $color-secondary;
+      margin: 5px 0;
+      transition: $transition-fast;
     }
   }
 }

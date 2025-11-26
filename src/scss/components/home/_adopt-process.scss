@@ -1,77 +1,182 @@
-// src/scss/components/home/_adopt_ process.scss
+// src/scss/components/home/_adopt-process.scss
 // 입양 절차 영역 (page-4)
 
-/* page4 영역 */
+@use '../../base/variables' as *;
 
+// =================================
+// page-4 메인 컨테이너
+// =================================
 #page-4 {
   width: 100%;
   height: 100dvh;
-  background: #F3F3EF;
+  min-height: 700px;
+  background: $color-background;
+  padding: 2rem;
+  
+  @include respond-to(md) {
+    height: auto;
+    min-height: 100dvh;
+    padding: 3rem 1.5rem;
+  }
+  
+  @include respond-to(sm) {
+    padding: 2rem 1rem;
+  }
 
-  /*구분 지으려고 임의로 배경색 지정한 것*/
-
+  // =================================
+  // 내부 컨테이너
+  // =================================
   .container {
     width: 100%;
     height: 100%;
-
-    /* background: #888; */
     display: grid;
     justify-items: center;
     justify-content: center;
     align-content: space-evenly;
+    
+    @include respond-to(md) {
+      gap: 2rem;
+      align-content: center;
+    }
 
     h1 {
-      font-size: 30px;
+      font-size: clamp(1.5rem, 4vw, 30px);
       font-weight: normal;
+      text-align: center;
     }
   }
 
+  // =================================
+  // 스와이퍼 컨테이너
+  // =================================
   .swiper-container {
     width: 100%;
     height: 100%;
+    max-width: 1400px;
   }
 
+  // =================================
+  // 절차 카드 그리드
+  // =================================
   .swiper-procedures {
     width: 100%;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     margin: 0 auto;
+    
+    @include respond-to(lg) {
+      gap: 1rem;
+    }
+    
+    @include respond-to(md) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @include respond-to(sm) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
 
-    .procedures-1, .procedures-2, .procedures-3, .procedures-4 {
+    // =================================
+    // 개별 절차 카드
+    // =================================
+    .procedures-1, 
+    .procedures-2, 
+    .procedures-3, 
+    .procedures-4 {
       width: 300px;
       height: 300px;
-      border: 1px solid #E1E0DB;
+      border: 1px solid $color-border;
       border-radius: 20px;
       background: #fff;
-      margin: 0 1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      padding: 1.5rem;
+      transition: transform $transition-fast, box-shadow $transition-fast;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      @include respond-to(xl) {
+        width: 280px;
+        height: 280px;
+      }
+      
+      @include respond-to(lg) {
+        width: 250px;
+        height: 260px;
+        padding: 1.2rem;
+      }
+      
+      @include respond-to(md) {
+        width: 100%;
+        height: auto;
+        min-height: 250px;
+        padding: 1.5rem;
+      }
+      
+      @include respond-to(sm) {
+        min-height: 220px;
+      }
     }
 
+    // =================================
+    // 절차 번호/타이틀
+    // =================================
     h2 {
-      color: #F19802;
-      font-size: 20px;
+      color: $color-primary-dark;
+      font-size: clamp(1rem, 2.5vw, 20px);
+      text-align: center;
     }
 
+    // =================================
+    // 절차 설명 텍스트
+    // =================================
     p.txt {
       text-align: center;
-      font-size: 1rem;
-      line-height: 1.3;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      line-height: 1.5;
+      color: $color-text;
     }
   }
 
+  // =================================
+  // 절차 하단 버튼
+  // =================================
   .procedures-btn {
     width: 200px;
     height: 50px;
-    background: #E1E0DB;
+    background: $color-border;
     border-radius: 25px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background $transition-fast, transform $transition-fast;
+    
+    &:hover {
+      background: #c9c8c0; // darken($color-border, 10%)
+      transform: translateY(-2px);
+    }
+    
+    @include respond-to(sm) {
+      width: 180px;
+      height: 45px;
+    }
 
     a {
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      color: $color-text;
     }
   }
 }

@@ -1,69 +1,93 @@
 // src/scss/components/common/_button.scss
 // 공통 버튼 스타일
 
-// top 버튼
+@use '../../base/variables' as *;
+
+// =================================
+// Top 버튼 (스크롤 상단 이동)
+// =================================
 #top-btn {
   position: fixed;
   bottom: 3rem;
   right: 2.5rem;
   z-index: 500;
+  
+  @include respond-to(sm) {
+    bottom: 2rem;
+    right: 1.5rem;
+  }
 
   i {
-    color: #EB9C00;
+    color: $color-primary;
     font-size: 1.5rem;
-  }
-}
-
-// 네비게이션 후원하기 버튼
-.nav-button {
-  text-align: right;
-  height: 5rem;
-
-  .btn-container {
-    width: 8rem;
-    height: 2.5rem;
-    border-radius: 20px;
-    background: #2F2521;
-    display: inline-block;
-    margin-top: 1.25rem;
+    display: none;
     cursor: pointer;
-    z-index: 9;
-    position: relative;
+    transition: transform $transition-fast;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+    
+    @include respond-to(sm) {
+      font-size: 1.2rem;
+    }
   }
 }
 
-// 네이게이션 후원하기 버튼 내 애니메이션 효과
-.nav-container .btn {
-  position: absolute;
-  top: 0.1rem;
-  left: 0.1rem;
-  overflow: hidden;
-  width: 7.8rem;
-  height: 2.3rem;
-  background: #2F2521;
-  border-radius: 30px;
-
-  .txt {
-    position: relative;
-    z-index: 2;
-    display: block;
-    line-height: 2.3rem;
-    text-align: center;
-    right: 1rem;
-    color: #FCF6EC;
+// =================================
+// 공통 버튼 베이스 스타일
+// =================================
+.btn-common {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  
+  &:hover {
+    transform: translateY(-2px);
   }
+}
 
-  &::before {
-    content: "";
-    display: block;
-    width: 7.8rem;
-    height: 2.3rem;
-    border-radius: 30px;
-    background: #FCF6EC;
-    position: absolute;
-    top: 0rem;
-    left: 8rem;
-    transition: linear 0.4s;
-    z-index: 1;
+// =================================
+// Primary 버튼 (주요 액션)
+// =================================
+.btn-primary {
+  @extend .btn-common;
+  background: $color-primary;
+  color: #fff;
+  
+  &:hover {
+    background: #c98500; // darken($color-primary, 10%)
+  }
+}
+
+// =================================
+// Secondary 버튼 (보조 액션)
+// =================================
+.btn-secondary {
+  @extend .btn-common;
+  background: $color-secondary;
+  color: $color-white;
+  
+  &:hover {
+    background: #4d3d36; // lighten($color-secondary, 10%)
+  }
+}
+
+// =================================
+// Outline 버튼
+// =================================
+.btn-outline {
+  @extend .btn-common;
+  background: transparent;
+  border: 1px solid $color-primary;
+  color: $color-primary;
+  
+  &:hover {
+    background: $color-primary;
+    color: #fff;
   }
 }

@@ -1,0 +1,87 @@
+// src/scss/components/sub/_qna.scss
+// QnA 페이지 전용 스타일
+
+@use '../../base/variables' as *;
+
+// =================================
+// QnA 섹션 컨테이너
+// =================================
+#qna {
+  // =================================
+  // QnA 아코디언 타이틀
+  // =================================
+  .accordion-title {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    align-items: center;
+    
+    @include respond-to(md) {
+      grid-template-columns: 0.5fr 9fr 1fr;
+    }
+    
+    @include respond-to(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // =================================
+  // QnA 질문 마크
+  // =================================
+  .q-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: $color-primary;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1rem;
+    
+    @include respond-to(sm) {
+      width: 25px;
+      height: 25px;
+      font-size: 0.85rem;
+    }
+  }
+  
+  // =================================
+  // QnA 답변 마크
+  // =================================
+  .a-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: $color-secondary;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-right: 1rem;
+    
+    @include respond-to(sm) {
+      width: 25px;
+      height: 25px;
+      font-size: 0.85rem;
+    }
+  }
+  
+  // =================================
+  // QnA 답변 콘텐츠
+  // =================================
+  .accordion-content {
+    display: flex;
+    align-items: flex-start;
+    
+    @include respond-to(sm) {
+      flex-direction: column;
+    }
+    
+    p {
+      flex: 1;
+    }
+  }
+}

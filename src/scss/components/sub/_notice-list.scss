@@ -1,0 +1,279 @@
+// src/scss/components/sub/_notice-list.scss
+// 공지사항, QnA 페이지 스타일
+
+@use '../../base/variables' as *;
+
+// =================================
+// 탭 컨테이너
+// =================================
+.tabs {
+  position: static;
+
+  .tabs-container {
+    display: flex;
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 100px auto;
+    justify-content: center;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    padding: 0 $container-padding;
+    
+    @include respond-to(md) {
+      margin: 60px auto;
+    }
+    
+    @include respond-to(sm) {
+      margin: 40px auto;
+      flex-direction: column;
+    }
+  }
+}
+
+// =================================
+// 개별 탭 스타일
+// =================================
+.tab {
+  width: 50%;
+  padding: 30px 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  outline: none;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  transition: all $transition-fast;
+  
+  @include respond-to(sm) {
+    width: 100%;
+    padding: 20px 0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  // =================================
+  // 활성 탭 스타일
+  // =================================
+  &.active {
+    border: 1px solid $color-primary;
+    border-bottom: 0;
+    color: $color-primary;
+    font-weight: bold;
+    
+    @include respond-to(sm) {
+      border: 1px solid $color-primary;
+    }
+  }
+
+  // =================================
+  // 비활성 탭 스타일
+  // =================================
+  &:not(.active) {
+    border: 0;
+    border-bottom: 1px solid $color-primary;
+    color: $color-text;
+    
+    @include respond-to(sm) {
+      border: 1px solid $color-border;
+      border-bottom: 1px solid $color-border;
+    }
+    
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+// =================================
+// 콘텐츠 영역
+// =================================
+.content {
+  width: 100%;
+  max-width: $container-max-width;
+  display: none;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  padding: 0 $container-padding;
+  
+  @include respond-to(md) {
+    margin-bottom: 60px;
+  }
+  
+  @include respond-to(sm) {
+    margin-bottom: 40px;
+  }
+
+  &.active {
+    display: block;
+  }
+}
+
+// =================================
+// 아코디언 아이템
+// =================================
+.accordion-item {
+  width: 100%;
+  border-bottom: 1px solid $color-border-dark;
+
+  &:first-child {
+    border-top: 3px solid $color-border-dark;
+  }
+
+  &:last-child {
+    border-bottom: 3px solid $color-border-dark;
+  }
+}
+
+// =================================
+// 아코디언 타이틀 (공지사항용)
+// =================================
+.accordion-title {
+  width: 100%;
+  padding: 25px 0;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: $color-text;
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  transition: background $transition-fast;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+  
+  @include respond-to(md) {
+    padding: 20px 0;
+    grid-template-columns: 0.5fr 8fr 1.5fr 1fr;
+  }
+  
+  @include respond-to(sm) {
+    padding: 15px 0;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  span {
+    text-align: center;
+    
+    @include respond-to(sm) {
+      text-align: left;
+    }
+
+    &.date {
+      font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      color: $color-text-light;
+    }
+
+    &.arrow {
+      color: $color-text-light;
+      transition: transform $transition-fast;
+    }
+  }
+}
+
+// =================================
+// QnA용 아코디언 타이틀
+// =================================
+#qna .accordion-title {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  align-items: center;
+  
+  @include respond-to(md) {
+    grid-template-columns: 0.5fr 9fr 1fr;
+  }
+  
+  @include respond-to(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// =================================
+// 아코디언 콘텐츠
+// =================================
+.accordion-content {
+  width: 100%;
+  display: none;
+  padding: 25px 108px;
+  border-top: 1px solid $color-border-dark;
+  background: rgba(0, 0, 0, 0.01);
+  
+  @include respond-to(md) {
+    padding: 25px 50px;
+  }
+  
+  @include respond-to(sm) {
+    padding: 20px 15px;
+  }
+
+  &[aria-hidden=false] {
+    display: block;
+  }
+
+  img {
+    width: 40%;
+    max-width: 100%;
+    height: auto;
+    
+    @include respond-to(sm) {
+      width: 100%;
+    }
+  }
+
+  p {
+    color: $color-text;
+    line-height: 1.8;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+  }
+}
+
+// =================================
+// 페이지 컨트롤 (페이지네이션)
+// =================================
+.page-controls {
+  width: 100%;
+  max-width: $container-max-width;
+  height: auto;
+  margin: 50px auto 100px;
+  position: static;
+  text-align: center;
+  padding: 0 $container-padding;
+  
+  @include respond-to(md) {
+    margin: 30px auto 60px;
+  }
+  
+  @include respond-to(sm) {
+    margin: 20px auto 40px;
+  }
+
+  button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    outline: none;
+    color: $color-text-light;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    transition: all $transition-fast;
+    
+    @include respond-to(sm) {
+      margin: 3px;
+      padding: 8px 12px;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &.active {
+      border: 1px solid $color-primary;
+      color: $color-primary;
+    }
+  }
+}

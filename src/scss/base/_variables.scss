@@ -1,0 +1,80 @@
+// src/scss/base/_variables.scss
+// 변수 및 반응형 믹스인 정의
+
+// =================================
+// 색상 변수
+// =================================
+$color-primary: #EB9C00;
+$color-primary-dark: #F19802;
+$color-secondary: #2F2521;
+$color-text: #222;
+$color-text-light: #888;
+$color-text-nav: #58463f;
+$color-background: #F3F3EF;
+$color-background-light: #F5F3ED;
+$color-border: #E1E0DB;
+$color-border-dark: #ccc;
+$color-footer: #3A302C;
+$color-footer-text: #eae1dd;
+$color-white: #FCF6EC;
+
+// =================================
+// 반응형 브레이크포인트
+// =================================
+$breakpoint-xl: 1400px;   // 대형 데스크탑
+$breakpoint-lg: 1200px;   // 데스크탑
+$breakpoint-md: 992px;    // 태블릿 가로
+$breakpoint-sm: 768px;    // 태블릿 세로
+$breakpoint-xs: 576px;    // 모바일
+
+// =================================
+// 반응형 믹스인
+// =================================
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  }
+}
+
+// =================================
+// 폰트 사이즈 반응형
+// =================================
+@mixin fluid-font($min-size, $max-size, $min-width: 320px, $max-width: 1400px) {
+  font-size: $min-size;
+  
+  @media (min-width: $min-width) {
+    font-size: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-width}) / #{strip-unit($max-width - $min-width)}));
+  }
+  
+  @media (min-width: $max-width) {
+    font-size: $max-size;
+  }
+}
+
+// =================================
+// 단위 제거 함수
+// =================================
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// =================================
+// 컨테이너 너비 변수
+// =================================
+$container-max-width: 1300px;
+$container-padding: 1rem;
+
+// =================================
+// 트랜지션
+// =================================
+$transition-fast: 0.3s ease;
+$transition-normal: 0.5s ease;
+$transition-slow: 0.8s ease;

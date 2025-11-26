@@ -4,14 +4,11 @@
 // 베이스
 @use 'base/reset';
 @use 'base/typography';
-
-// 레이아웃
-@use 'layout/layout';
-@use 'layout/nav';
-@use 'layout/footer';
+@use 'base/variables';
 
 // 공통 컴포넌트
 @forward 'components/common/button';
+@forward 'components/common/nav';
 
 // 페이지별 컴포넌트 (홈페이지)
 @forward 'components/home/intro';
@@ -19,7 +16,13 @@
 @forward 'components/home/adopt-process';
 
 // 페이지별 컴포넌트 (서브페이지)
+@forward 'components/sub/header';
 @forward 'components/sub/notice-list';
+@forward 'components/sub/qna';
+
+// 레이아웃
+@use 'layout/footer';
+@use 'layout/layout';
 
 
 // body {

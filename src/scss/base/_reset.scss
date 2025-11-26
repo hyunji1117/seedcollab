@@ -1,6 +1,9 @@
 // src/scss/base/_reset.scss
 // 공통 스타일
 
+// =================================
+// 전역 리셋
+// =================================
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,59 +12,39 @@
   scroll-behavior: smooth;
 }
 
+// =================================
+// 링크 스타일 초기화
+// =================================
 a {
-  &:link, &:visited {
+  &:link, 
+  &:visited {
     text-decoration: none;
     color: black;
     cursor: pointer;
   }
 }
 
+// =================================
+// 리스트 스타일 초기화
+// =================================
 li {
   list-style-type: none;
   margin: 0;
 }
 
+// =================================
+// 버튼 스타일 초기화
+// =================================
 button {
   all: unset;
   cursor: pointer;
 }
 
-.btn-container:hover {
-  .btn::before {
-    left: 0;
-  }
-  
-  .txt {
-    color: #2F2521;
-    font-weight: bold;
-    transition: linear 0.5s;
-  }
-}
-
+// =================================
+// 이미지 스타일 초기화
+// =================================
 img {
   vertical-align: middle;
-}
-
-.nav-container .btn {
-  .txt .icon {
-    width: 2.3rem;
-    height: 2.3rem;
-    background: #FCF6EC;
-    border-radius: 50%;
-    position: absolute;
-    top: 0rem;
-    left: 6.5rem;
-    z-index: 3;
-
-    img {
-      width: 12px;
-    }
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
+  max-width: 100%;
+  height: auto;
 }
