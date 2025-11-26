@@ -21,7 +21,7 @@ nav {
     align-items: center;
     width: 100%;
     height: 5rem;
-    padding: 0 0.8rem;
+    padding: 0 1rem;
     border-bottom: 1px solid rgba(130, 130, 130, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -32,7 +32,8 @@ nav {
     }
     
     @include respond-to(sm) {
-      height: 3.5rem;
+      height: 4rem;
+      padding: 0 2rem;
       flex-wrap: wrap;
     }
   }
@@ -41,54 +42,51 @@ nav {
   // 네비게이션 로고 영역
   // =================================
   .nav-logo {
-    width: 20%;
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
     
-    @include respond-to(md) {
-      width: 30%;
-    }
-    
-    @include respond-to(sm) {
-      width: 40%;
-    }
-    
-    .menu-logo a {
-      height: 60px;
-      display: inline-block;
-
+    .menu-logo {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      
+      a {
+        display: flex;
+        align-items: center;
+        margin-left: 1rem;
+      
       img {
-        height: 3rem;
-        
-        @include respond-to(md) {
-          height: 2.5rem;
-        }
-        
-        @include respond-to(sm) {
-          height: 2rem;
-        }
+        transform: scale(2);
       }
     }
   }
+}
 
   // =================================
   // 네비게이션 버튼 영역
   // =================================
   .nav-button {
-    width: 10%;
+    width: 15%;
     
     @include respond-to(md) {
-      width: 15%;
+      width: 20%;
     }
     
     @include respond-to(sm) {
       width: auto;
     }
   }
+  text-align: center;
 
   // =================================
   // 네비게이션 메뉴 영역
   // =================================
   .nav-menu {
-    width: 60%;
+    // width: 50%;
+    flex: 1 1 auto;
     
     @include respond-to(md) {
       width: 45%;
@@ -155,10 +153,10 @@ nav {
 // 로그인/회원가입 링크 영역
 // =================================
 .nav-login-register {
-  width: 10%;
+  width: 15%;
   
   @include respond-to(md) {
-    width: 15%;
+    width: 20%;
   }
   
   @include respond-to(sm) {
@@ -167,12 +165,14 @@ nav {
 
   .login-register-link {
     display: flex;
-    justify-content: space-around;
     text-align: right;
+    width: 100%;
+    justify-content: center;
 
     > li > a {
       display: inline-block;
       font-size: 0.9rem;
+      padding: 10px;
       color: $color-text-nav;
       
       @include respond-to(md) {
@@ -205,8 +205,7 @@ nav {
 // 네비게이션 버튼 스타일
 // =================================
 .nav-button {
-  text-align: right;
-  height: 5rem;
+  width: 20%;
   
   @include respond-to(md) {
     height: 4rem;
@@ -222,7 +221,7 @@ nav {
     border-radius: 20px;
     background: $color-secondary;
     display: inline-block;
-    margin-top: 1.25rem;
+    margin-top: 0.25rem;
     cursor: pointer;
     z-index: 9;
     position: relative;
